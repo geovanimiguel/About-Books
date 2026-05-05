@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leitura Viva | Mantenha a Leitura Viva</title>
+
+    <meta name="description" content="Explora livros que realmente fazem sentido para ti. Descobre histórias, ideias e conhecimento na Leitura Viva.">    
+            <!-- Links -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+</head>
+<body>
+    <header class="header">
+    <div class="header-main">
+        <h1 class="logo">
+            <a href="index.html">Leitura<span>Viva</span></a>
+        </h1>
+        
+        <div class="header-actions">
+            <a href="search.html" class="icon-link" aria-label="Pesquisar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+            
+            <a href="carrinho.html" class="icon-link cart-btn">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="cart-count">0</span>
+            </a>
+        </div>
+    </div>
+
+    <nav class="nav-bar">
+        <ul>
+            <li><a href="index.html" class="active">Início</a></li>
+            <li><a href="catalogo.html">Catálogo</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
+</header>
+    <!-- Conteúdo principal -->
+    <main>
+        <section  class="container-home" id="home">
+            <div class="home-content">
+                <h2>
+                    Menos procura. Mais leitura.
+                </h2>
+                <p>
+                    Explore, descubra e encontre livros que realmente valem o teu tempo.
+                </p>
+                <div>
+                    <a href="catalogo.html">Explorar livros</a>
+                    <a href="search.html">Já sabes o que queres?</a>
+                </div>
+            </div>
+            <div class="livros">
+                <h2>
+                    Escolhas feitas para ti.
+                </h2>
+            <div class="livros-container">
+                <article class="book-card">
+                    <div class="image">
+                        foto do livro
+                    </div>
+                    <h3>
+                        Titulo do Livro 1
+                    </h3>
+                    <p>
+                        Descrição do livro 1.
+                    </p>
+                    <p>
+                        preço do livro 1
+                    </p>
+                    <button class="add-to-cart"
+                        data-id="1"
+                        data-name="Startup Enxuta"
+                        data-price="5950">
+                        Adicionar ao carrinho
+                    </button>
+                </article>
+                    <article class="book-card">
+                    <div class="image">
+                        foto do livro
+                    </div>
+                    <h3>
+                        Livro 1
+                    </h3>
+                    <p>
+                        Descrição do livro 1.
+                    </p>
+                    <p>
+                        preço do livro 1
+                    </p>
+                    <button class="add-to-cart"
+                        data-id="1"
+                        data-name="Startup Enxuta"
+                        data-price="5950">
+                        Adicionar ao carrinho
+                    </button>
+                </article>
+                    <article class="book-card">
+                    <div class="image">
+                        foto do livro
+                    </div>
+                    <h3>
+                        Livro 2
+                    </h3>
+                    <p>
+                        Descrição do livro 2.
+                    </p>
+                    <p>
+                        preço do livro 2
+                    </p>
+                    <button class="add-to-cart"
+                        data-id="2"
+                        data-name="O Poder do Hábito"
+                        data-price="6990">
+                        Adicionar ao carrinho
+                    </button>
+                </article>
+                <article class="book-card">
+                    <div class="image">
+                        foto do livro
+                    </div>
+                    <h3>
+                        Livro 3
+                    </h3>
+                    <p>
+                        Descrição do livro 3.
+                    </p>
+                    <p>
+                        preço do livro 3
+                    </p>
+                    <button class="add-to-cart"
+                        data-id="3"
+                        data-name="Mindset"
+                        data-price="7990">
+                        Adicionar ao carrinho
+                    </button>
+                </article>
+            </div>
+            </div>
+        </section>
+        <section class="categorias">
+            <h2>
+                Categorias
+            </h2>
+            <div class="cat-cards">
+                <article class="card">
+                    <h3>
+                        <a href="#romance">Romance que prende</a>
+                    </h3>
+                </article>
+                <article class="card">
+                    <h3>
+                        <a href="#ficcao">Ficção que expande a mente</a>
+                    </h3>
+                </article>
+                <article class="card">
+                    <h3>
+                        <a href="#terror">Terror que arrepia</a>
+                    </h3>
+                </article>
+                <article class="card">
+                    <h3>
+                        <a href="#vendido">Mais vendidos</a>
+                    </h3>
+                </article>
+                <article class="card">
+                    <h3>
+                        <a href="#recomendado">Recomendados</a>
+                    </h3>
+                </article>
+            </div>
+        </section>
+        <section class="catalogo-container">
+            <h2>
+                Catálogo
+            </h2>
+            <div class="catalogo-grid">
+                <article class="book-card">
+                    <div class="image">
+                        foto do livro
+                    </div>
+                    <h3>
+                        Livro 1
+                    </h3>
+                    <p>
+                        Descrição do livro 1.
+                    </p>
+                    <p>
+                        preço do livro 1
+                    </p>
+                    <button class="add-to-cart"
+                        data-id="1"
+                        data-name="Startup Enxuta"
+                        data-price="5950">
+                        Adicionar ao carrinho
+                    </button>
+                </article>
+                <article class="book-card">
+                    <div class="image">
+                        foto do livro
+                    </div>
+                    <h3>
+                        Livro 2
+                    </h3>
+                    <p>
+                        Descrição do livro 2.
+                    </p>
+                    <p>
+                        preço do livro 2
+                    </p>
+                    <button class="add-to-cart"
+                        data-id="2"
+                        data-name="O Poder do Hábito"
+                        data-price="6990">
+                        Adicionar ao carrinho
+                    </button>
+                </article>
+                <article class="book-card">
+                    <div class="image">
+                        foto do livro
+                    </div>
+                    <h3>
+                        Livro 3
+                    </h3>
+                    <p>
+                        Descrição do livro 3.
+                    </p>
+                    <p>
+                        preço do livro 3
+                    </p>
+                    <button class="add-to-cart"
+                        data-id="1"
+                        data-name="Startup Enxuta"
+                        data-price="5950">
+                        Adicionar ao carrinho
+                    </button>
+                </article>
+                <article class="book-card">
+                    <div class="image">
+                        foto do livro
+                    </div>
+                    <h3>
+                        Livro 4
+                    </h3>
+                    <p>
+                        Descrição do livro 4.
+                    </p>
+                    <p>
+                        preço do livro 4
+                    </p>
+                    <button class="add-to-cart"
+                        data-id="1"
+                        data-name="Startup Enxuta"
+                        data-price="5950">
+                        Adicionar ao carrinho
+                    </button>
+                </article>
+                <article class="book-card">
+                    <div class="image">
+                        foto do livro
+                    </div>
+                    <h3>
+                        Livro 5
+                    </h3>
+                    <p>
+                        Descrição do livro 5.
+                    </p>
+                    <p>
+                        preço do livro 5
+                    </p>
+                    <button class="add-to-cart"
+                        data-id="5"
+                        data-name="Livro 5"
+                        data-price="5950">
+                        Adicionar ao carrinho
+                    </button>
+                </article>
+                <article class="book-card">
+                    <div class="image">
+                        foto do livro
+                    </div>
+                    <h3>
+                        Livro 6
+                    </h3>
+                    <p>
+                        Descrição do livro 6.
+                    </p>
+                    <p>
+                        preço do livro 6
+                    </p>
+                    <button class="add-to-cart"
+                        data-id="6"
+                        data-name="Livro 6"
+                        data-price="5950">
+                        Adicionar ao carrinho
+                    </button>
+                </article>
+                <article class="book-card">
+                    <div class="image">
+                        foto do livro
+                    </div>
+                    <h3>
+                        Livro 7
+                    </h3>
+                    <p>
+                        Descrição do livro 7.
+                    </p>
+                    <p>
+                        preço do livro 7
+                    </p>
+                    <button class="add-to-cart"
+                        data-id="7"
+                        data-name="Livro 7"
+                        data-price="5950">
+                        Adicionar ao carrinho
+                    </button>
+                </article>
+            </div>
+        </section>
+        <section class="reviews">
+          <h3>O que dizem nossos clientes</h3>
+
+            <div class="reviews-grid">
+                <div class="review">
+                <p class="review-text">
+                    “Amei a qualidade da entrega!”
+                </p>
+                <span class="review-name">— Carlos M.</span>
+                </div>
+
+                <div class="review">
+                <p class="review-text">
+                    “Processo simples, gostei muito.”
+                </p>
+                <span class="review-name">— João P.</span>
+                </div>
+
+                <div class="review">
+                    <p class="review-text">
+                    “Finalmente encontrei livros que queria sem stress.”
+                    </p>
+                    <span class="review-name">— Miguel S.</span>
+                </div>
+            </div>
+        </section>
+                    <!-- FAQ -->
+        <section class="faq" id="faq">
+        <div class="faq-container">
+
+            <header class="faq-header">
+                <h2>
+                    Perguntas Frequentes
+                </h2>
+                <p>
+                    Resposta a duvidas frequentes
+                </p>
+            </header>
+
+            <div class="faq-list">
+
+            <article class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                <span class="icon"></span>
+                <span class="text">Fazem entregas em todas as provincias?</span>
+                <span class="arrow">+</span>
+                </button>
+
+                <div class="faq-answer">
+                <p>
+                    Sim, entregamos em todas as províncias de Angola. Enviamos para todo o país, garantindo que os livros cheguem até ti, onde quer que estejas.
+                </p>
+                </div>
+            </article>
+
+            <article class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                <span class="icon">⏱️</span>
+                <span class="text">Quanto tempo tenho que esperar depois de fazer o pedido?</span>
+                <span class="arrow">+</span>
+                </button>
+
+                <div class="faq-answer">
+                <p>
+                    O tempo de entrega varia dependendo da tua localização, mas geralmente leva entre 1 dia (fora de Luanda 3-7 dias úteis) para que o teu pedido chegue até ti.
+                </p>
+                </div>
+            </article>
+
+            <article class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                <span class="icon"></span>
+                <span class="text">Posso devolver o livro se não gostar?</span>
+                <span class="arrow">+</span>
+                </button>
+
+                <div class="faq-answer">
+                <p>
+                    Sim, aceitamos devoluções dentro de 7 dias após a entrega. Se o livro chegar danificado ou se não estiveres satisfeito, entre em contato conosco para resolver o problema.
+                </p>
+                </div>
+            </article>
+
+            <article class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                <span class="icon">💸</span>
+                <span class="text">Qual o custo do serviço?</span>
+                <span class="arrow">+</span>
+                </button>
+
+                <div class="faq-answer">
+                <p>
+                    O custo do serviço depende do livro e da tua localização. Oferecemos preços competitivos e opções de envio acessíveis para garantir que a leitura seja acessível a todos.
+                </p>
+                </div>
+            </article>
+            </div>
+        </div>
+        </section>
+        
+        <section class="cta"  id="contact">
+          
+            <h3>Procuras algo específico?</h3>
+
+          <a href="https://wa.me/+244930793980?text=Olá, gostaria de comprar um livro." class="btn">Pedir livro no WhatsApp</a>
+        
+        </section>
+    </main>
+
+      <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h2>Leitura Viva</h2>
+                 <p>Mantenha a Leitura viva.</p>
+            </div>
+
+            <div class="footer-links">
+                  <h3>Links</h3>
+                    <ul>
+                    <li>
+                        <a href="index.html">Início</a>
+                    </li>
+                    <li>
+                        <a href="catalogo.html">Catálogo</a>
+                    </li>
+                    <li>
+                        <a href="#contato">Contato</a>
+                    </li>
+                    <li>
+                        <a href="carrinho.html" class="cart-link">
+                        🛒 <span id="cart-count">0</span>
+                        </a>
+                    </li>
+                    </ul>
+            </div>
+
+            <div class="footer-contato" id="contato">
+                <h3>Contato</h3>
+                <a href="https://wa.me/244XXXXXXXXX" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+
+                <div class="footer-social">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Leitura Viva. Todos os direitos reservados.</p>
+            </div>
+        </div>
+  </footer>
+
+  <!-- WhatsApp -->
+   <a href="https://wa.me/244930793980?text=Olá! Gostaria de comprar um livro." class="whatsapp-float" target="_blank" aria-label="Falar no WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <script src="js/main.js"></script>
+  <script src="js/index.js"></script>
+
+</body>
+</html>

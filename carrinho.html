@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu Carrinho | Leitura Viva</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/0ca9af2c6a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="header-top">
+        <h1>
+            <a href="index.html">Leitura Viva</a>
+        </h1>
+
+        <div class="header-actions">
+            <a href="search.html" class="search-link">🔍</a>
+            <a href="carrinho.html" class="cart-link">
+                🛒 <span id="cart-count">0</span>
+            </a>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="catalogo.html">Catálogo</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+<main>
+
+    <!-- CARRINHO -->
+    <section class="cart-section">
+
+        <header class="cart-header">
+            <h2>Seu Carrinho</h2>
+            <p>Revê os teus livros antes de finalizar.</p>
+        </header>
+
+        <div id="cart-items"></div>
+
+        <div class="total-container">
+            <h3>Total: <span id="total">0</span> kz</h3>
+        </div>
+
+        <div class="cart-actions">
+            <button id="clear-cart">Limpar Carrinho</button>
+        </div>
+
+    </section>
+
+    <!-- CHECKOUT -->
+    <section class="checkout">
+
+        <header>
+            <h2>Finalizar Pedido</h2>
+            <p>Preenche teus dados para enviarmos pelo WhatsApp</p>
+        </header>
+
+        <form id="checkout-form">
+
+            <div class="form-group">
+                <label for="name">Nome</label>
+                <input type="text" id="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Número</label>
+                <input type="tel" id="phone" required placeholder="Ex: 923000000">
+            </div>
+
+            <div class="form-group">
+                <label for="address">Localização</label>
+                <input type="text" id="address" placeholder="Bairro, rua...">
+            </div>
+
+            <button type="submit" class="btn-checkout">
+                Finalizar no WhatsApp
+            </button>
+
+        </form>
+
+    </section>
+
+</main>
+
+<footer class="footer" id="contato">
+
+    <div class="footer-container">
+
+        <div class="footer-brand">
+            <h2>Leitura Viva</h2>
+            <p>Mantenha a leitura viva.</p>
+        </div>
+
+        <div class="footer-links">
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-contato">
+            <a href="https://wa.me/244XXXXXXXXX">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+            </a>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 Leitura Viva</p>
+    </div>
+
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/checkout.js"></script>
+
+</body>
+</html>
