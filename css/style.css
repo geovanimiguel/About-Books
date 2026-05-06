@@ -78,14 +78,10 @@ body {
     min-height: 100vh;
 }
 
-/* Menu aberto - sem salto */
 body.menu-open {
-    overflow: hidden;
-    height: 100vh;
-}
-
-body.menu-open .header {
-    background: var(--white);
+    position: fixed;
+    width: 100%;
+    overflow-y: scroll; /* evita salto de layout */
 }
 
 /* ================= UTILITÁRIOS ================= */
@@ -311,19 +307,14 @@ button {
 
 .overlay {
     position: fixed;
-    inset: 0;
+    inset: 0;          /* cobre a página toda */
+    z-index: 99;       /* abaixo do drawer, acima do conteúdo */
     background: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 2500;
+    display: none;
 }
 
 .overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-    visibility: visible;
+    display: block;
 }
 
 /* ================= NAV DRAWER ================= */
@@ -573,7 +564,7 @@ button {
     min-height: 80vh;
     display: flex;
     align-items: center;
-    background: url('../img/img\ de\ capa.jpg') center/cover no-repeat;
+    background: url('../img/imgdecapa.webp') center/cover no-repeat;
     margin-top: 0;
 }
 
@@ -983,6 +974,7 @@ button {
     margin-bottom: var(--space-xs);
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -1284,24 +1276,24 @@ button {
 /* ================= IMAGENS DE FUNDO ================= */
 
 .card.romance {
-    background-image: url('../img/categorias/romance.jpg');
+    background-image: url('../img/relacionship.webp');
 }
 
 .card.ficcao {
-    background-image: url('../img/categorias/ficcao.jpg');
+    background-image: url('../img/explr.webp');
     
 }
 
 .card.terror {
-    background-image: url('../img/categorias/terror.jpg');
+    background-image: url('../img/terror\ \(3\).webp');
 }
 
 .card.vendidos {
-    background-image: url('../img/categorias/vendidos.jpg');
+    background-image: url('../img/reco.webp');
 }
 
 .card.recomendados {
-    background-image: url('../img/categorias/recomendados.jpg');
+    background-image: url('../img/lendo\ num\ ambiente\ relaxante.webp');
 }
 
 /* ================= DESKTOP ================= */
@@ -1423,23 +1415,23 @@ button {
 /* ================= BACKGROUNDS ================= */
 
 .card.romance {
-    background-image: url('../img/relacionship.jfif');
+    background-image: url('../img/relacionship.webp');
 }
 
 .card.ficcao {
-    background-image: url('../img/explr.jfif');
+    background-image: url('../img/explr.webp');
 }
 
 .card.terror {
-    background-image: url('../img/terror\ \(4\).jfif');
+    background-image: url('../img/terror\ \(4\).webp');
 }
 
 .card.vendidos {
-    background-image: url('../img/recomend.jfif');
+    background-image: url('../img/recomend.webp');
 }
 
 .card.recomendados {
-    background-image: url('../img/reco.jfif');
+    background-image: url('../img/reco.webp');
 }
 
 /* ================= REVEAL (ANIMAÇÃO SCROLL) ================= */

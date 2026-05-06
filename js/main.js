@@ -1,9 +1,6 @@
 // ================= ESTADO GLOBAL =================
 
-// Carrinho
 let cart = JSON.parse(localStorage.getItem('leituraViva_cart')) || [];
-
-// Scroll control (menu)
 let scrollPosition = 0;
 
 
@@ -15,7 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartCount();
     setupHeaderScroll();
     setupNotifyButtons();
-    setupReveal(); // 🔥 animação ativada
+    setupReveal();
+    setupSequentialReveal();
+    setupActiveNavLink();
 });
 
 
@@ -35,32 +34,35 @@ function setupMenu() {
         drawer.classList.add('active');
         overlay.classList.add('active');
         hamburger.classList.add('active');
-
         hamburger.setAttribute('aria-expanded', 'true');
 
-        document.body.classList.add('menu-open');
+        // FIX: trava o scroll do body mantendo a posição actual
         document.body.style.top = `-${scrollPosition}px`;
+        document.body.classList.add('menu-open');
     }
 
     function closeMenu() {
         drawer.classList.remove('active');
         overlay.classList.remove('active');
         hamburger.classList.remove('active');
-
         hamburger.setAttribute('aria-expanded', 'false');
 
+        // FIX: restaura o scroll exactamente onde estava
         document.body.classList.remove('menu-open');
         document.body.style.top = '';
-
-        window.scrollTo(0, scrollPosition);
+        window.scrollTo({ top: scrollPosition, behavior: 'instant' });
     }
 
     hamburger.addEventListener('click', () => {
-        const isOpen = drawer.classList.contains('active');
-        isOpen ? closeMenu() : openMenu();
+        drawer.classList.contains('active') ? closeMenu() : openMenu();
     });
 
     closeBtn.addEventListener('click', closeMenu);
+
+    // FIX: overlay agora fecha o menu (funcionava antes mas o overlay estava
+    // confinado ao header — certifique-se que o CSS do overlay seja:
+    // .overlay { position: fixed; inset: 0; z-index: ...; }
+    // e que o elemento .overlay esteja fora do <header> no HTML, antes de </body>
     overlay.addEventListener('click', closeMenu);
 
     document.addEventListener('keydown', (e) => {
@@ -75,7 +77,6 @@ function setupMenu() {
 
 function setupEventListeners() {
     document.body.addEventListener('click', (e) => {
-
         const addBtn = e.target.closest('.add-to-cart');
 
         if (addBtn) {
@@ -90,7 +91,6 @@ function setupEventListeners() {
             addToCart(item);
             animateButton(addBtn);
         }
-
     });
 }
 
@@ -116,7 +116,6 @@ function saveCart() {
 
 function updateCartCount() {
     const counters = document.querySelectorAll('.cart-count');
-
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     counters.forEach(counter => {
@@ -139,9 +138,9 @@ function animateButton(btn) {
         btn.classList.add('success');
 
         if (span) {
-            span.innerText = "✔ Adicionado";
+            span.innerText = '✔ Adicionado';
         } else {
-            btn.innerText = "✔ Adicionado";
+            btn.innerText = '✔ Adicionado';
         }
 
         setTimeout(() => {
@@ -153,7 +152,6 @@ function animateButton(btn) {
                 btn.innerText = originalText;
             }
         }, 1200);
-
     }, 400);
 }
 
@@ -171,6 +169,7 @@ function setupHeaderScroll() {
 
         if (currentScroll <= 0) {
             header.classList.remove('hide');
+            lastScroll = currentScroll;
             return;
         }
 
@@ -187,35 +186,30 @@ function setupHeaderScroll() {
 
 // ================= WHATSAPP NOTIFY =================
 
-// Exemplo de correção
-document.querySelectorAll('.notify-btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const originalText = this.textContent;
-        const originalHTML = this.innerHTML;
-        
-        // Feedback visual
-        this.textContent = 'Abrindo WhatsApp...';
-        this.style.pointerEvents = 'none';
-        this.style.opacity = '0.8';
-        
-        // Abrir WhatsApp
-        const phone = '244930793980';
-        const message = encodeURIComponent('Olá! Gostaria de saber quando este livro estiver disponível.');
-        const waLink = `https://wa.me/${phone}?text=${message}`;
-        
-        // Pequeno delay para o utilizador ver o feedback
-        setTimeout(() => {
-            window.open(waLink, '_blank');
-            
-            // Reset após voltar
-            this.innerHTML = originalHTML;
-            this.style.pointerEvents = 'auto';
-            this.style.opacity = '1';
-        }, 600);
+function setupNotifyButtons() {
+    document.querySelectorAll('.notify-btn').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const originalHTML = this.innerHTML;
+
+            this.textContent = 'Abrindo WhatsApp...';
+            this.style.pointerEvents = 'none';
+            this.style.opacity = '0.8';
+
+            const phone = '244930793980';
+            const message = encodeURIComponent('Olá! Gostaria de saber quando este livro estiver disponível.');
+            const waLink = `https://wa.me/${phone}?text=${message}`;
+
+            setTimeout(() => {
+                window.open(waLink, '_blank');
+                this.innerHTML = originalHTML;
+                this.style.pointerEvents = 'auto';
+                this.style.opacity = '1';
+            }, 600);
+        });
     });
-});
+}
 
 
 // ================= REVEAL ANIMATION =================
@@ -223,10 +217,7 @@ document.querySelectorAll('.notify-btn').forEach(btn => {
 function setupReveal() {
     const elements = document.querySelectorAll('.book-card, .card');
 
-    if (!elements.length) {
-        console.log("Nenhum elemento encontrado para animar 👀");
-        return;
-    }
+    if (!elements.length) return;
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -234,29 +225,24 @@ function setupReveal() {
                 entry.target.classList.add('active');
             }
         });
-    }, {
-        threshold: 0.2
-    });
+    }, { threshold: 0.2 });
 
     elements.forEach((el, index) => {
         el.classList.add('reveal');
-        el.style.transitionDelay = `${index * 0.05}s`; // 🔥 efeito cascata
+        el.style.transitionDelay = `${index * 0.05}s`;
         observer.observe(el);
     });
 }
 
 function setupSequentialReveal() {
     const container = document.querySelector('.book-concierge');
-
     if (!container) return;
 
     const items = container.querySelectorAll('.reveal-seq');
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-
             if (entry.isIntersecting) {
-
                 items.forEach((el, index) => {
                     setTimeout(() => {
                         el.classList.add('active');
@@ -265,23 +251,19 @@ function setupSequentialReveal() {
 
                 observer.unobserve(container);
             }
-
         });
-    }, {
-        threshold: 0.3
-    });
+    }, { threshold: 0.3 });
 
     observer.observe(container);
 }
 
-/* INIT */
-document.addEventListener('DOMContentLoaded', () => {
-    setupSequentialReveal();
-});
 
-// No final do body, antes de </body>
-document.querySelectorAll('.nav-desktop a').forEach(link => {
-    if (link.href === window.location.href) {
-        link.classList.add('active');
-    }
-});
+// ================= NAV LINK ACTIVO =================
+
+function setupActiveNavLink() {
+    document.querySelectorAll('.nav-desktop a, .nav-drawer a').forEach(link => {
+        if (link.href === window.location.href) {
+            link.classList.add('active');
+        }
+    });
+}
