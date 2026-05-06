@@ -2,6 +2,7 @@
 
 let cart = JSON.parse(localStorage.getItem('leituraViva_cart')) || [];
 let scrollPosition = 0;
+let menuIsOpen = false;
 
 
 // ================= INIT =================
@@ -22,32 +23,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function setupMenu() {
     const hamburger = document.querySelector('.hamburger');
-    const drawer = document.querySelector('.nav-drawer');
-    const overlay = document.querySelector('.overlay');
-    const closeBtn = document.querySelector('.close-menu');
+    const drawer    = document.querySelector('.nav-drawer');
+    const overlay   = document.querySelector('.overlay');
+    const closeBtn  = document.querySelector('.close-menu');
 
     if (!hamburger || !drawer || !overlay || !closeBtn) return;
 
     function openMenu() {
         scrollPosition = window.scrollY;
+        menuIsOpen = true;
 
         drawer.classList.add('active');
         overlay.classList.add('active');
         hamburger.classList.add('active');
-        hamburger.setAttribute('aria-expanded', 'true');
 
-        // FIX: trava o scroll do body mantendo a posição actual
+        hamburger.setAttribute('aria-expanded', 'true');
+        drawer.setAttribute('aria-hidden', 'false'); // FIX: acessibilidade
+
         document.body.style.top = `-${scrollPosition}px`;
         document.body.classList.add('menu-open');
     }
 
     function closeMenu() {
+        menuIsOpen = false;
+
         drawer.classList.remove('active');
         overlay.classList.remove('active');
         hamburger.classList.remove('active');
-        hamburger.setAttribute('aria-expanded', 'false');
 
-        // FIX: restaura o scroll exactamente onde estava
+        hamburger.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true'); // FIX: acessibilidade
+
         document.body.classList.remove('menu-open');
         document.body.style.top = '';
         window.scrollTo({ top: scrollPosition, behavior: 'instant' });
@@ -58,11 +64,6 @@ function setupMenu() {
     });
 
     closeBtn.addEventListener('click', closeMenu);
-
-    // FIX: overlay agora fecha o menu (funcionava antes mas o overlay estava
-    // confinado ao header — certifique-se que o CSS do overlay seja:
-    // .overlay { position: fixed; inset: 0; z-index: ...; }
-    // e que o elemento .overlay esteja fora do <header> no HTML, antes de </body>
     overlay.addEventListener('click', closeMenu);
 
     document.addEventListener('keydown', (e) => {
@@ -81,10 +82,10 @@ function setupEventListeners() {
 
         if (addBtn) {
             const item = {
-                id: addBtn.getAttribute('data-id'),
-                name: addBtn.getAttribute('data-name'),
-                price: parseFloat(addBtn.getAttribute('data-price')),
-                image: addBtn.closest('.book-card')?.querySelector('img')?.src || '',
+                id:       addBtn.getAttribute('data-id'),
+                name:     addBtn.getAttribute('data-name'),
+                price:    parseFloat(addBtn.getAttribute('data-price')),
+                image:    addBtn.closest('.book-card')?.querySelector('img')?.src || '',
                 quantity: 1
             };
 
@@ -115,7 +116,7 @@ function saveCart() {
 }
 
 function updateCartCount() {
-    const counters = document.querySelectorAll('.cart-count');
+    const counters  = document.querySelectorAll('.cart-count');
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     counters.forEach(counter => {
@@ -128,7 +129,7 @@ function updateCartCount() {
 // ================= ANIMAÇÃO BOTÃO =================
 
 function animateButton(btn) {
-    const span = btn.querySelector('span');
+    const span        = btn.querySelector('span');
     const originalText = span ? span.innerText : btn.innerText;
 
     btn.classList.add('loading');
@@ -137,20 +138,14 @@ function animateButton(btn) {
         btn.classList.remove('loading');
         btn.classList.add('success');
 
-        if (span) {
-            span.innerText = '✔ Adicionado';
-        } else {
-            btn.innerText = '✔ Adicionado';
-        }
+        if (span) span.innerText = '✔ Adicionado';
+        else btn.innerText = '✔ Adicionado';
 
         setTimeout(() => {
             btn.classList.remove('success');
 
-            if (span) {
-                span.innerText = originalText;
-            } else {
-                btn.innerText = originalText;
-            }
+            if (span) span.innerText = originalText;
+            else btn.innerText = originalText;
         }, 1200);
     }, 400);
 }
@@ -165,6 +160,9 @@ function setupHeaderScroll() {
     let lastScroll = 0;
 
     window.addEventListener('scroll', () => {
+        // FIX: não esconde o header enquanto o menu mobile está aberto
+        if (menuIsOpen) return;
+
         const currentScroll = window.scrollY;
 
         if (currentScroll <= 0) {
@@ -193,19 +191,19 @@ function setupNotifyButtons() {
 
             const originalHTML = this.innerHTML;
 
-            this.textContent = 'Abrindo WhatsApp...';
+            this.textContent       = 'Abrindo WhatsApp...';
             this.style.pointerEvents = 'none';
-            this.style.opacity = '0.8';
+            this.style.opacity      = '0.8';
 
-            const phone = '244930793980';
+            const phone   = '244930793980';
             const message = encodeURIComponent('Olá! Gostaria de saber quando este livro estiver disponível.');
-            const waLink = `https://wa.me/${phone}?text=${message}`;
+            const waLink  = `https://wa.me/${phone}?text=${message}`;
 
             setTimeout(() => {
                 window.open(waLink, '_blank');
-                this.innerHTML = originalHTML;
+                this.innerHTML         = originalHTML;
                 this.style.pointerEvents = 'auto';
-                this.style.opacity = '1';
+                this.style.opacity      = '1';
             }, 600);
         });
     });
@@ -216,7 +214,6 @@ function setupNotifyButtons() {
 
 function setupReveal() {
     const elements = document.querySelectorAll('.book-card, .card');
-
     if (!elements.length) return;
 
     const observer = new IntersectionObserver((entries) => {
@@ -244,11 +241,8 @@ function setupSequentialReveal() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 items.forEach((el, index) => {
-                    setTimeout(() => {
-                        el.classList.add('active');
-                    }, index * 400);
+                    setTimeout(() => el.classList.add('active'), index * 400);
                 });
-
                 observer.unobserve(container);
             }
         });
@@ -261,8 +255,11 @@ function setupSequentialReveal() {
 // ================= NAV LINK ACTIVO =================
 
 function setupActiveNavLink() {
+    const currentPath = window.location.pathname;
+
     document.querySelectorAll('.nav-desktop a, .nav-drawer a').forEach(link => {
-        if (link.href === window.location.href) {
+        // FIX: compara só o pathname, ignora query strings e âncoras
+        if (link.pathname === currentPath) {
             link.classList.add('active');
         }
     });

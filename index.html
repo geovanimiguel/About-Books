@@ -3,55 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Título e descrição -->
+    <title>Leitura Viva | Alimente sua mente, mude seu mundo</title>
+    <meta name="description" content="Curadoria exclusiva de livros em Angola. Garimpamos os melhores títulos para si — entrega rápida em Luanda e para todo o país.">
+
     <!-- Open Graph -->
-    <meta property="og:type"        content="website">
-    <meta property="og:url"         content="https://geovanimiguel.github.io/About-Books/">
-    <meta property="og:title"       content="Leitura Viva | Curadoria de livros em Angola">
-    <meta property="og:description" content="Garimpamos os melhores títulos para si. Entrega rápida em Luanda e para todo o país.">
-    <meta property="og:image"       content="https://geovanimiguel.github.io/About-Books/assets/og-image.png">
+    <meta property="og:type"         content="website">
+    <meta property="og:url"          content="https://geovanimiguel.github.io/About-Books/">
+    <meta property="og:title"        content="Leitura Viva | Curadoria de livros em Angola">
+    <meta property="og:description"  content="Curadoria exclusiva de livros em Angola. Garimpamos os melhores títulos para si — entrega rápida em Luanda e para todo o país.">
+    <meta property="og:image"        content="https://geovanimiguel.github.io/About-Books/assets/og-image.png">
     <meta property="og:image:width"  content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:locale"      content="pt_AO">
-    <meta property="og:site_name"   content="Leitura Viva">
+    <meta property="og:locale"       content="pt_AO">
+    <meta property="og:site_name"    content="Leitura Viva">
 
     <!-- WhatsApp / Twitter -->
     <meta name="twitter:card"        content="summary_large_image">
     <meta name="twitter:title"       content="Leitura Viva | Curadoria de livros em Angola">
-    <meta name="twitter:description" content="Garimpamos os melhores títulos para si. Entrega rápida em Luanda e para todo o país.">
+    <meta name="twitter:description" content="Curadoria exclusiva de livros em Angola. Garimpamos os melhores títulos para si — entrega rápida em Luanda e para todo o país.">
     <meta name="twitter:image"       content="https://geovanimiguel.github.io/About-Books/assets/og-image.png">
-    <title>Leitura Viva | Alimente sua mente, mude seu mundo</title>
-    <meta name="description" content="Curadoria exclusiva de livros em Angola. Encontre histórias que transformam e ideias que inspiram na Leitura Viva.">
-    <link rel="icon" href="assets/favicon.png">    
+
+    <!-- Favicon e estilos -->
+    <link rel="icon" href="assets/favicon.png">
     <link rel="stylesheet" href="css/style.css">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
 <body>
+
 <header class="header">
     <div class="header-main container">
 
         <h1 class="logo">
             <a href="index.html" aria-label="Página inicial Leitura Viva">Leitura<span>Viva</span></a>
         </h1>
-        
+
         <!-- NAVEGAÇÃO DESKTOP -->
-        <ul class="nav-desktop">
-            <li><a href="index.html" class="active">Início</a></li>
-            <li><a href="catalogo.html">Catálogo</a></li>
-            <li><a href="#contato">Contato</a></li>
-        </ul>
+        <nav aria-label="Navegação principal">
+            <ul class="nav-desktop">
+                <li><a href="index.html" class="active">Início</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
 
         <div class="header-actions">
 
             <!-- Pesquisa -->
             <a href="search.html" class="icon-link" aria-label="Pesquisar um título">
-                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>                    
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
             </a>
-            
+
             <!-- Carrinho -->
             <a href="carrinho.html" class="icon-link cart-btn" aria-label="Ver carrinho">
                 <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
@@ -59,13 +65,13 @@
             </a>
 
             <!-- MENU MOBILE -->
-            <button class="hamburger" aria-label="Abrir menu" aria-expanded="false">
+            <button class="hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-drawer">
                 <i class="fa-solid fa-bars" aria-hidden="true"></i>
             </button>
         </div>
 
         <!-- MENU LATERAL (MOBILE) -->
-        <nav class="nav-drawer" aria-label="Menu principal">
+        <nav class="nav-drawer" id="nav-drawer" aria-label="Menu principal" aria-hidden="true">
 
             <button class="close-menu" aria-label="Fechar menu">
                 <i class="fa-solid fa-xmark" aria-hidden="true"></i>
@@ -105,11 +111,10 @@
         </nav>
 
     </div>
-    
 </header>
+
 <!-- OVERLAY -->
 <div class="overlay"></div>
-
     <main>
         
     <section class="hero">
@@ -271,7 +276,7 @@
                         <span class="badge badge--popular">🔥 Popular</span>
 
                         <a href="#" class="image-box" aria-label="Ver detalhes do livro Startup Enxuta">
-                            <img src="img/A startup enxuta.jfif"
+                            <img src="img/A startup enxuta.webp"
                                 alt="Capa do livro Startup Enxuta"
                                 loading="lazy">
                         </a>
@@ -307,7 +312,7 @@
                         <span class="badge badge--new">🆕 Novo</span>
 
                         <a href="#" class="image-box" aria-label="Ver detalhes do livro O Poder do Hábito">
-                            <img src="img/O poder do hábito.jfif"
+                            <img src="img/O poder do hábito.webp"
                                 alt="Capa do livro O Poder do Hábito"
                                 loading="lazy">
                         </a>
@@ -343,7 +348,7 @@
                         <span class="badge badge--out">Esgotado</span>
 
                         <a href="#" class="image-box" aria-label="Ver detalhes do livro Mindset">
-                            <img src="img/Mindset.jfif"
+                            <img src="img/Mindset.webp"
                                 alt="Capa do livro Mindset"
                                 loading="lazy">
                         </a>
