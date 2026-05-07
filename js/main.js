@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupReveal();
     setupSequentialReveal();
     setupActiveNavLink();
+    setupValores();
 });
 
 
@@ -38,7 +39,7 @@ function setupMenu() {
         hamburger.classList.add('active');
 
         hamburger.setAttribute('aria-expanded', 'true');
-        drawer.setAttribute('aria-hidden', 'false'); // FIX: acessibilidade
+        drawer.setAttribute('aria-hidden', 'false');
 
         document.body.style.top = `-${scrollPosition}px`;
         document.body.classList.add('menu-open');
@@ -52,7 +53,7 @@ function setupMenu() {
         hamburger.classList.remove('active');
 
         hamburger.setAttribute('aria-expanded', 'false');
-        drawer.setAttribute('aria-hidden', 'true'); // FIX: acessibilidade
+        drawer.setAttribute('aria-hidden', 'true');
 
         document.body.classList.remove('menu-open');
         document.body.style.top = '';
@@ -116,12 +117,19 @@ function saveCart() {
 }
 
 function updateCartCount() {
-    const counters  = document.querySelectorAll('.cart-count');
+    const counters   = document.querySelectorAll('.cart-count');
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     counters.forEach(counter => {
         counter.innerText = totalItems;
-        counter.classList.toggle('pulse', totalItems > 0);
+
+        if (totalItems > 0) {
+            counter.classList.remove('pulse');
+            void counter.offsetWidth;
+            counter.classList.add('pulse');
+        } else {
+            counter.classList.remove('pulse');
+        }
     });
 }
 
@@ -129,7 +137,7 @@ function updateCartCount() {
 // ================= ANIMAÇÃO BOTÃO =================
 
 function animateButton(btn) {
-    const span        = btn.querySelector('span');
+    const span         = btn.querySelector('span');
     const originalText = span ? span.innerText : btn.innerText;
 
     btn.classList.add('loading');
@@ -160,7 +168,6 @@ function setupHeaderScroll() {
     let lastScroll = 0;
 
     window.addEventListener('scroll', () => {
-        // FIX: não esconde o header enquanto o menu mobile está aberto
         if (menuIsOpen) return;
 
         const currentScroll = window.scrollY;
@@ -191,9 +198,9 @@ function setupNotifyButtons() {
 
             const originalHTML = this.innerHTML;
 
-            this.textContent       = 'Abrindo WhatsApp...';
+            this.textContent        = 'Abrindo WhatsApp...';
             this.style.pointerEvents = 'none';
-            this.style.opacity      = '0.8';
+            this.style.opacity       = '0.8';
 
             const phone   = '244930793980';
             const message = encodeURIComponent('Olá! Gostaria de saber quando este livro estiver disponível.');
@@ -201,9 +208,9 @@ function setupNotifyButtons() {
 
             setTimeout(() => {
                 window.open(waLink, '_blank');
-                this.innerHTML         = originalHTML;
+                this.innerHTML          = originalHTML;
                 this.style.pointerEvents = 'auto';
-                this.style.opacity      = '1';
+                this.style.opacity       = '1';
             }, 600);
         });
     });
@@ -258,27 +265,28 @@ function setupActiveNavLink() {
     const currentPath = window.location.pathname;
 
     document.querySelectorAll('.nav-desktop a, .nav-drawer a').forEach(link => {
-        // FIX: compara só o pathname, ignora query strings e âncoras
         if (link.pathname === currentPath) {
             link.classList.add('active');
         }
     });
 }
 
-function updateCartCount() {
-    const counters   = document.querySelectorAll('.cart-count');
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-    counters.forEach(counter => {
-        counter.innerText = totalItems;
+// ================= VALORES (BOLINHAS) =================
 
-        if (totalItems > 0) {
-            // FIX: remove e re-adiciona para a animação disparar sempre
-            counter.classList.remove('pulse');
-            void counter.offsetWidth; // força o browser a fazer reset da animação
-            counter.classList.add('pulse');
-        } else {
-            counter.classList.remove('pulse');
-        }
+function setupValores() {
+    const valores = document.querySelectorAll('.valor-item');
+    if (!valores.length) return;
+
+    valores.forEach((item) => {
+        item.addEventListener('click', () => {
+            valores.forEach((el) => {
+                el.classList.remove('active');
+                el.setAttribute('aria-expanded', 'false');
+            });
+
+            item.classList.add('active');
+            item.setAttribute('aria-expanded', 'true');
+        });
     });
 }
