@@ -264,3 +264,21 @@ function setupActiveNavLink() {
         }
     });
 }
+
+function updateCartCount() {
+    const counters   = document.querySelectorAll('.cart-count');
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    counters.forEach(counter => {
+        counter.innerText = totalItems;
+
+        if (totalItems > 0) {
+            // FIX: remove e re-adiciona para a animação disparar sempre
+            counter.classList.remove('pulse');
+            void counter.offsetWidth; // força o browser a fazer reset da animação
+            counter.classList.add('pulse');
+        } else {
+            counter.classList.remove('pulse');
+        }
+    });
+}

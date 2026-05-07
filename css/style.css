@@ -281,6 +281,8 @@ button {
 
 /* ================= CONTADOR DO CARRINHO ================= */
 
+/* ================= CONTADOR DO CARRINHO ================= */
+
 .cart-count {
     position: absolute;
     top: 2px;
@@ -297,6 +299,28 @@ button {
     border-radius: var(--radius-full);
     line-height: 1;
     padding: 0 4px;
+    /* FIX: base para a animação funcionar correctamente */
+    transform-origin: center;
+    will-change: transform;
+}
+
+/* Pulsa uma vez sempre que um livro é adicionado ao carrinho */
+.cart-count.pulse {
+    animation: cartPulse 0.4s ease-out;
+}
+
+@keyframes cartPulse {
+    0%   { transform: scale(1); }
+    45%  { transform: scale(1.45); }
+    70%  { transform: scale(0.92); }
+    100% { transform: scale(1); }
+}
+
+/* Respeita preferência do utilizador por menos movimento */
+@media (prefers-reduced-motion: reduce) {
+    .cart-count.pulse {
+        animation: none;
+    }
 }
 
 

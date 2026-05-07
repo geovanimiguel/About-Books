@@ -651,107 +651,116 @@
 
     </main>
         
-    <footer class="footer">
-    <div class="footer-container">
-        
-        <!-- BRAND -->
-        <div class="footer-brand">
+<footer class="footer">
+        <div class="footer-container">
 
-            <h2 class="logo">
-                <a href="index.html" aria-label="Página inicial Leitura Viva">Leitura<span>Viva</span></a>
-            </h2>
+            <!-- BRAND -->
+            <div class="footer-brand">
 
-            <p class="footer-description">
-                Levamos conhecimento até à tua porta, em qualquer ponto de Angola.
-                Entrega rápida, escolha certa, leitura sem complicações.
-            </p>
+                <!-- FIX: era <h2> — logo não é um título de secção -->
+                <p class="logo">
+                    <a href="index.html" aria-label="Página inicial Leitura Viva">Leitura<span>Viva</span></a>
+                </p>
 
-            <!-- REDES SOCIAIS -->
-            <div class="footer-social">
-                <p class="social-title">Segue-nos</p>
+                <p class="footer-description">
+                    Levamos conhecimento até à tua porta, em qualquer ponto de Angola.
+                    Entrega rápida, escolha certa, leitura sem complicações.
+                </p>
 
-                <ul class="social-icons" aria-label="Redes sociais">
-                    <li>
-                        <a href="https://facebook.com/leituraviva" 
-                           class="social-facebook" 
-                           target="_blank" 
-                           rel="noopener noreferrer"
-                           aria-label="Facebook Leitura Viva">
-                            <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://instagram.com/leituraviva" 
-                           class="social-instagram" 
-                           target="_blank" 
-                           rel="noopener noreferrer"
-                           aria-label="Instagram Leitura Viva">
-                            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://wa.me/244930793980" 
-                           class="social-whatsapp" 
-                           target="_blank" 
-                           rel="noopener noreferrer"
-                           aria-label="WhatsApp Leitura Viva">
-                            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                </ul>
+                <!-- REDES SOCIAIS -->
+                <div class="footer-social">
+                    <p class="social-title">Segue-nos</p>
+                    <ul class="social-icons" aria-label="Redes sociais">
+                        <li>
+                            <a href="https://facebook.com/leituraviva"
+                               class="social-facebook"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="Facebook da Leitura Viva">
+                                <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://instagram.com/leituraviva"
+                               class="social-instagram"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="Instagram da Leitura Viva">
+                                <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/244930793980"
+                               class="social-whatsapp"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="WhatsApp da Leitura Viva">
+                                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- PAGAMENTOS -->
+                <div class="footer-payments">
+                    <p class="payments-title">Pagamentos seguros</p>
+                    <ul class="payment-icons" aria-label="Métodos de pagamento aceites">
+                        <li class="payment-item">
+                            <i class="fa-solid fa-money-bill-transfer" aria-hidden="true"></i>
+                            <span class="sr-only">Transferência Bancária</span>
+                        </li>
+                        <li class="payment-item">
+                            <i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>
+                            <span class="sr-only">Multicaixa Express</span>
+                        </li>
+                        <li class="payment-item">
+                            <i class="fa-solid fa-hand-holding-dollar" aria-hidden="true"></i>
+                            <span class="sr-only">Pagamento no acto da entrega</span>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
 
-            <!-- PAGAMENTOS -->
-            <div class="footer-payments">
-                <p class="payments-title">Pagamentos seguros</p>
-
-                <ul class="payment-icons" aria-label="Métodos de pagamento aceites">
-                    <li class="payment-item">
-                        <i class="fa-solid fa-money-bill-transfer" aria-hidden="true"></i>
-                        <span class="sr-only">Transferência Bancária</span>
-                    </li>
-                    <li class="payment-item">
-                        <i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>
-                        <span class="sr-only">Multicaixa Express</span>
-                    </li>
-                    <li class="payment-item">
-                        <i class="fa-solid fa-hand-holding-dollar" aria-hidden="true"></i>
-                        <span class="sr-only">Pagamento no acto da entrega</span>
-                    </li>
+            <!-- LINKS -->
+            <nav class="footer-links" aria-labelledby="footer-explorar-title">
+                <h2 id="footer-explorar-title" class="footer-title">Explorar</h2>
+                <ul class="footer-list">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="catalogo.html">Explorar Livros</a></li>
+                    <li><a href="carrinho.html">Meu Carrinho</a></li>
+                    <li><a href="sobre.html">Sobre Nós</a></li>
                 </ul>
-            </div>
+            </nav>
 
         </div>
 
-        <!-- LINKS -->
-        <nav class="footer-links" aria-labelledby="footer-explorar-title">
-            <h2 id="footer-explorar-title" class="footer-title">Explorar</h2>
+        <!-- COPYRIGHT -->
+        <!-- FIX: ano actualizado automaticamente via JS -->
+        <div class="footer-bottom">
+            <p>© <span id="footer-year"></span> Leitura Viva. Todos os direitos reservados.</p>
+        </div>
 
-            <ul class="footer-list">
-                <li><a href="index.html">Início</a></li>
-                <li><a href="catalogo.html">Explorar Livros</a></li>
-                <li><a href="carrinho.html">Meu Carrinho</a></li>
-                <li><a href="sobre.html">Sobre Nós</a></li>
-            </ul>
-        </nav>
-
-    </div>
-
-    <!-- COPYRIGHT -->
-    <div class="footer-bottom">
-        <p>© 2025 Leitura Viva. Todos os direitos reservados.</p>
-    </div>
     </footer>
 
-<!-- SCRIPTS -->
-<script src="js/main.js" defer></script>
-<script src="js/index.js" defer></script>
-<script src="js/bolinha.js" defer></script>
+    <!-- OVERLAY (fora do header, cobre a página toda) -->
+    <div class="overlay"></div>
 
-<!-- Font Awesome -->
-<script src="https://kit.fontawesome.com/0ca9af2c6a.js" crossorigin="anonymous"></script>
+    <!-- SCRIPTS -->
+    <!-- FIX: Font Awesome carregado só uma vez — via CDN no <head> já é suficiente -->
+    <!-- Remove o kit abaixo se mantiveres o <link> CDN no <head>             -->
+    <!-- Se preferires usar o kit (tem mais ícones), remove o <link> do <head> -->
+    <script src="js/main.js"    defer></script>
+    <script src="js/index.js"   defer></script>
+    <script src="js/bolinha.js" defer></script>
 
-<!-- Lordicon -->
-<script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <!-- Lordicon -->
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+
+    <!-- FIX: ano dinâmico no copyright -->
+    <script>
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+    </script>
+
 </body>
 </html>
