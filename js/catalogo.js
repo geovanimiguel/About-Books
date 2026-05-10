@@ -290,11 +290,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Delegação de eventos do grid (carrinho + avisar)
+    // stopPropagation impede que o main.js também capture o clique
+    // e adicione o item duas vezes ao carrinho.
     grid?.addEventListener('click', e => {
         const addBtn    = e.target.closest('.add-to-cart');
         const notifyBtn = e.target.closest('.notify-btn');
 
         if (addBtn) {
+            e.stopPropagation(); // ← fix: evita duplo disparo com main.js
+
             const livro = window.LeituraViva.getPorId(addBtn.dataset.id);
             if (!livro) return;
 
@@ -314,6 +318,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (notifyBtn) {
+            e.stopPropagation(); // ← consistência
+
             const nome    = notifyBtn.dataset.name || 'este livro';
             const phone   = '244930793980';
             const message = encodeURIComponent(`Olá! Gostaria de saber quando "${nome}" estiver disponível.`);
