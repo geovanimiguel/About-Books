@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         destaqueSlider.innerHTML = destaques.map(livro => {
+            const esgotado = livro.estado === 'esgotado';
             const desconto = livro.precoOld > livro.preco
                 ? Math.round((1 - livro.preco / livro.precoOld) * 100)
                 : 0;
@@ -80,14 +81,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? `<span class="price-old">${livro.precoOld.toLocaleString('pt-AO')} Kz</span>`
                 : '';
 
+            // Botão no overlay (desktop hover)
+            const botaoOverlay = esgotado
+                ? `<button class="destaque-btn notify-btn"
+                            data-id="${livro.id}"
+                            data-name="${livro.titulo}"
+                            aria-label="Ser avisado quando ${livro.titulo} estiver disponível">
+                       🔔 Avisar-me
+                   </button>`
+                : `<button class="destaque-btn add-to-cart"
+                            data-id="${livro.id}"
+                            data-name="${livro.titulo}"
+                            data-price="${livro.preco}"
+                            aria-label="Adicionar ${livro.titulo} ao carrinho">
+                       <span>🛒 Adicionar</span>
+                   </button>`;
+
+            // Botão no card-content (mobile — sempre visível)
+            const botaoMobile = esgotado
+                ? `<button class="destaque-btn-mobile notify-btn"
+                            data-id="${livro.id}"
+                            data-name="${livro.titulo}"
+                            aria-label="Ser avisado quando ${livro.titulo} estiver disponível">
+                       🔔 Avisar-me
+                   </button>`
+                : `<button class="destaque-btn-mobile add-to-cart"
+                            data-id="${livro.id}"
+                            data-name="${livro.titulo}"
+                            data-price="${livro.preco}"
+                            aria-label="Adicionar ${livro.titulo} ao carrinho">
+                       <span>🛒 Adicionar</span>
+                   </button>`;
+
             return `
-                <article class="card-destaque" role="listitem" data-categoria="${livro.categoria}">
+                <article class="card-destaque${esgotado ? ' is-out' : ''}"
+                         role="listitem"
+                         data-categoria="${livro.categoria}">
+
                     <div class="img-box">
                         ${tagHTML}
                         <img src="${livro.imagem}"
                              alt="Capa do livro ${livro.titulo}"
                              loading="lazy">
+                        <!-- Overlay com botão — visível ao hover no desktop -->
+                        <div class="destaque-overlay" aria-hidden="true">
+                            ${botaoOverlay}
+                        </div>
                     </div>
+
                     <div class="card-content">
                         <h3 class="title">${livro.titulo}</h3>
                         <p class="meta">${livro.autor}</p>
@@ -96,10 +137,43 @@ document.addEventListener('DOMContentLoaded', () => {
                             ${precoOldHTML}
                             ${desconto ? `<span class="discount-tag">-${desconto}%</span>` : ''}
                         </div>
+                        <!-- Botão mobile — sempre visível, escondido no desktop por CSS -->
+                        ${botaoMobile}
                     </div>
+
                 </article>
             `;
         }).join('');
+
+        // Delegação de eventos — slider de destaques
+        destaqueSlider.addEventListener('click', e => {
+            const addBtn    = e.target.closest('.add-to-cart');
+            const notifyBtn = e.target.closest('.notify-btn');
+
+            if (addBtn) {
+                e.stopPropagation();
+                const livro = window.LeituraViva.getPorId(addBtn.dataset.id);
+                if (!livro) return;
+                if (typeof addToCart === 'function') {
+                    addToCart({ id: livro.id, name: livro.titulo, price: livro.preco, image: livro.imagem, quantity: 1 });
+                }
+                if (typeof animateButton === 'function') animateButton(addBtn);
+            }
+
+            if (notifyBtn) {
+                e.stopPropagation();
+                const nome    = notifyBtn.dataset.name || 'este livro';
+                const message = encodeURIComponent(`Olá! Gostaria de saber quando "${nome}" estiver disponível.`);
+                const orig    = notifyBtn.innerHTML;
+                notifyBtn.textContent         = 'A abrir...';
+                notifyBtn.style.pointerEvents = 'none';
+                setTimeout(() => {
+                    window.open(`https://wa.me/244930793980?text=${message}`, '_blank');
+                    notifyBtn.innerHTML           = orig;
+                    notifyBtn.style.pointerEvents = 'auto';
+                }, 500);
+            }
+        });
     }
 
 

@@ -100,28 +100,29 @@ document.addEventListener('DOMContentLoaded', () => {
                          loading="lazy">
                 </div>
 
-                <div class="item-info">
+                <div class="item-corpo">
                     <p class="item-titulo">${item.name}</p>
-                    <p class="item-autor">${item.price.toLocaleString('pt-AO')} Kz / unidade</p>
+                    <p class="item-autor">${item.price.toLocaleString('pt-AO')} Kz / un.</p>
 
-                    <div class="item-qty">
-                        <button class="qty-btn btn-menos"
+                    <div class="item-footer">
+                        <div class="item-qty">
+                            <button class="qty-btn btn-menos"
+                                    data-id="${item.id}"
+                                    aria-label="Diminuir quantidade de ${item.name}">−</button>
+                            <span class="qty-num" aria-label="Quantidade: ${item.quantity}">${item.quantity}</span>
+                            <button class="qty-btn btn-mais"
+                                    data-id="${item.id}"
+                                    aria-label="Aumentar quantidade de ${item.name}">+</button>
+                        </div>
+
+                        <span class="item-preco">${totalItem.toLocaleString('pt-AO')} Kz</span>
+
+                        <button class="btn-remover-item"
                                 data-id="${item.id}"
-                                aria-label="Diminuir quantidade de ${item.name}">−</button>
-                        <span class="qty-num" aria-label="Quantidade: ${item.quantity}">${item.quantity}</span>
-                        <button class="qty-btn btn-mais"
-                                data-id="${item.id}"
-                                aria-label="Aumentar quantidade de ${item.name}">+</button>
+                                aria-label="Remover ${item.name} do carrinho">
+                            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                        </button>
                     </div>
-                </div>
-
-                <div class="item-direita">
-                    <span class="item-preco">${totalItem.toLocaleString('pt-AO')} Kz</span>
-                    <button class="btn-remover-item"
-                            data-id="${item.id}"
-                            aria-label="Remover ${item.name} do carrinho">
-                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-                    </button>
                 </div>
 
             </li>
