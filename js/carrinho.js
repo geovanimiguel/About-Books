@@ -49,6 +49,79 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const PHONE         = '244930793980';
 
+    // ────────────────────────────────────────────────────────────
+    //  PLACEHOLDER DE IMAGEM
+    //  Gera uma capa simples via Canvas quando a imagem não existe.
+    //  Funciona sem depender do placeholder.js externo.
+    // ────────────────────────────────────────────────────────────
+
+    function gerarPlaceholder(titulo, autor) {
+        try {
+            const canvas  = document.createElement('canvas');
+            canvas.width  = 120;
+            canvas.height = 180;
+            const ctx     = canvas.getContext('2d');
+
+            // Fundo vinho escuro
+            ctx.fillStyle = '#1a0a10';
+            ctx.fillRect(0, 0, 120, 180);
+
+            // Barra lateral
+            ctx.fillStyle = '#630D16';
+            ctx.fillRect(0, 0, 4, 180);
+
+            // Linha topo
+            ctx.fillStyle = '#630D16';
+            ctx.fillRect(0, 0, 120, 2);
+
+            // Nome da loja
+            ctx.fillStyle = 'rgba(255,255,255,0.35)';
+            ctx.font      = '500 8px Inter, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('LEITURA VIVA', 62, 18);
+
+            // Título — quebra em linhas
+            ctx.fillStyle = 'rgba(255,255,255,0.9)';
+            ctx.font      = 'bold 11px Georgia, serif';
+            const palavras = titulo.toUpperCase().split(' ');
+            const linhas   = [];
+            let linha      = '';
+            palavras.forEach(p => {
+                const teste = linha ? linha + ' ' + p : p;
+                if (ctx.measureText(teste).width > 96 && linha) {
+                    linhas.push(linha);
+                    linha = p;
+                } else {
+                    linha = teste;
+                }
+            });
+            if (linha) linhas.push(linha);
+
+            const startY = 90 - (linhas.length * 14) / 2;
+            linhas.forEach((l, i) => ctx.fillText(l, 62, startY + i * 15));
+
+            // Autor
+            ctx.fillStyle = 'rgba(255,255,255,0.45)';
+            ctx.font      = '9px Inter, sans-serif';
+            const autorTrunc = autor.length > 22 ? autor.slice(0, 20) + '…' : autor;
+            ctx.fillText(autorTrunc, 62, startY + linhas.length * 15 + 12);
+
+            return canvas.toDataURL('image/png');
+        } catch (e) {
+            // Se canvas falhar (ex: modo privado restrito), devolve string vazia
+            return '';
+        }
+    }
+
+    // Aplica placeholder a uma img que falhou
+    function aplicarPlaceholder(img, titulo, autor) {
+        const src = gerarPlaceholder(titulo || 'Livro', autor || '');
+        if (src) img.src = src;
+        img.style.objectFit = 'cover';
+    }
+
+
+
 
     // ────────────────────────────────────────────────────────────
     //  RENDER PRINCIPAL
@@ -81,6 +154,33 @@ document.addEventListener('DOMContentLoaded', () => {
         resumoEl?.removeAttribute('hidden');
 
         listaEl.innerHTML = carrinho.map((item, i) => criarItemHTML(item, i)).join('');
+
+        // Aplica placeholder em todas as imagens que falharem
+        setupImagensCarrinho();
+    }
+
+    function setupImagensCarrinho() {
+        listaEl.querySelectorAll('.item-img img').forEach(img => {
+            const titulo = img.dataset.titulo || 'Livro';
+            const autor  = img.dataset.autor  || '';
+
+            // Se já falhou (imagem vazia ou src inválido)
+            if (!img.src || img.src === window.location.href) {
+                aplicarPlaceholder(img, titulo, autor);
+                return;
+            }
+
+            // Listener para quando falhar ao carregar
+            img.addEventListener('error', function handler() {
+                aplicarPlaceholder(this, titulo, autor);
+                this.removeEventListener('error', handler);
+            });
+
+            // Se já carregou e está quebrada
+            if (img.complete && img.naturalWidth === 0) {
+                aplicarPlaceholder(img, titulo, autor);
+            }
+        });
     }
 
 
@@ -97,7 +197,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="item-img">
                     <img src="${item.image || ''}"
                          alt="Capa de ${item.name}"
-                         loading="lazy">
+                         loading="lazy"
+                         data-titulo="${item.name}"
+                         data-autor="${item.autor || item.author || ''}">
                 </div>
 
                 <div class="item-corpo">
@@ -222,12 +324,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // ────────────────────────────────────────────────────────────
 
     btnLimpar?.addEventListener('click', () => {
-        if (!confirm('Tens a certeza que queres limpar o carrinho?')) return;
-        saveCartData([]);
-        cupaoActivo   = null;
-        descontoValor = 0;
-        render();
-        actualizarGlobalCount();
+        abrirModalConfirm(
+            'Limpar carrinho',
+            'Tens a certeza? Todos os livros serão removidos.',
+            () => {
+                saveCartData([]);
+                cupaoActivo   = null;
+                descontoValor = 0;
+                render();
+                actualizarGlobalCount();
+            }
+        );
     });
 
 
@@ -464,6 +571,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ────────────────────────────────────────────────────────────
+    //  MODAL DE CONFIRMAÇÃO (substitui confirm() — não funciona
+    //  em Safari/iOS no GitHub Pages)
+    // ────────────────────────────────────────────────────────────
+
+    function abrirModalConfirm(titulo, mensagem, onConfirm) {
+        document.getElementById('lv-modal')?.remove();
+
+        const modal = document.createElement('div');
+        modal.id = 'lv-modal';
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-labelledby', 'lv-modal-titulo');
+        modal.innerHTML = `
+            <div class="lv-modal-backdrop"></div>
+            <div class="lv-modal-box">
+                <h3 id="lv-modal-titulo">${titulo}</h3>
+                <p>${mensagem}</p>
+                <div class="lv-modal-actions">
+                    <button type="button" class="lv-btn-cancelar">Cancelar</button>
+                    <button type="button" class="lv-btn-confirmar">Confirmar</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+        requestAnimationFrame(() => modal.classList.add('lv-modal-open'));
+
+        function fechar() {
+            modal.classList.remove('lv-modal-open');
+            setTimeout(() => modal.remove(), 250);
+        }
+
+        modal.querySelector('.lv-modal-backdrop').addEventListener('click', fechar);
+        modal.querySelector('.lv-btn-cancelar').addEventListener('click', fechar);
+        modal.querySelector('.lv-btn-confirmar').addEventListener('click', () => {
+            fechar();
+            onConfirm();
+        });
+
+        function onKey(e) {
+            if (e.key === 'Escape') { fechar(); document.removeEventListener('keydown', onKey); }
+        }
+        document.addEventListener('keydown', onKey);
+        setTimeout(() => modal.querySelector('.lv-btn-cancelar')?.focus(), 50);
+    }
+
+
     //  INIT
     // ────────────────────────────────────────────────────────────
 
