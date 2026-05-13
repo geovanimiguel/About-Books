@@ -146,8 +146,8 @@ function animateButton(btn) {
         btn.classList.remove('loading');
         btn.classList.add('success');
 
-        if (span) span.innerText = '✔ Adicionado';
-        else btn.innerText = '✔ Adicionado';
+        if (span) span.innerText = 'Adicionado';
+        else btn.innerText = 'Adicionado';
 
         setTimeout(() => {
             btn.classList.remove('success');

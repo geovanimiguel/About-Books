@@ -745,3 +745,100 @@
 
 .sugestoes-grid .add-to-cart:hover  { background: var(--vinho); }
 .sugestoes-grid .add-to-cart:active { transform: scale(0.96); }
+
+
+/* ================= MODAL DE CONFIRMAÇÃO ================= */
+
+#lv-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md);
+}
+
+.lv-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.25s ease;
+}
+
+#lv-modal.lv-modal-open .lv-modal-backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.lv-modal-box {
+    position: relative;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    width: 100%;
+    max-width: 360px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#lv-modal.lv-modal-open .lv-modal-box {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.lv-modal-box h3 {
+    font-family: var(--font-title);
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: var(--space-xs);
+    text-align: left;
+}
+
+.lv-modal-box p {
+    font-size: 0.88rem;
+    color: var(--text-light);
+    margin-bottom: var(--space-lg);
+    max-width: none;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.lv-modal-actions {
+    display: flex;
+    gap: var(--gap-sm);
+}
+
+.lv-btn-cancelar,
+.lv-btn-confirmar {
+    flex: 1;
+    padding: 11px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    /* Garante tap target mínimo em iOS */
+    min-height: 44px;
+}
+
+.lv-btn-cancelar {
+    background: var(--cinza);
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+.lv-btn-cancelar:hover  { background: var(--border); }
+
+.lv-btn-confirmar {
+    background: #d90429;
+    border: none;
+    color: var(--white);
+}
+
+.lv-btn-confirmar:hover  { background: #b8001f; }
+.lv-btn-confirmar:active { transform: scale(0.97); }
