@@ -435,8 +435,50 @@
             descricao : 'Versículos bíblicos apresentados de forma simples e colorida para os mais pequenos.',
             destaque  : false,
         },
+        
+        // ___ Desesnvolvimento Pessoal  _____________
 
+        {
+            id        : 'startup-enxuta',
+            titulo    : 'A Startup Enxuta',
+            autor     : 'Eric Ries',
+            preco     : 12500,
+            precoOld  : 9200,
+            imagem    : 'img/A startup enxuta.webp',
+            categoria : 'desenvolvimento',
+            estado    : 'disponivel',
+            descricao : ' Foca em metodologias ágeis e criação de novos modelos de negócios sob condições de incerteza extremas',
+            destaque  : false,
+        },
+
+        {
+            id        : 'poder-habito',
+            titulo    : 'O Poder do Hábito',
+            autor     : 'James Clear',
+            preco     : 13990,
+            precoOld  : 11990,
+            imagem    : 'img/O poder do hábito.webp',
+            categoria : 'desenvolvimento',
+            estado    : 'disponivel',
+            descricao : 'Como criar bons hábitos e eliminar os ruins — com base na ciência do comportamento humano.',
+            destaque  : false,
+        },
+
+        {
+            id        : 'mindset',
+            titulo    : 'Mindset: A Nova Psicologia do Sucesso',
+            autor     : 'Carol S. Dweck',
+            preco     : 5500,
+            precoOld  : 7200,
+            imagem    : 'img/Mindset.webp',
+            categoria : 'desenvolvimento',
+            estado    : 'esgotado',
+            descricao : 'Explora o impacto das crenças fixas versus progressivas no potencial de crescimento humano.',
+            destaque  : false,
+        },
     ];
+
+    
 
 
     // ── UTILITÁRIOS ──────────────────────────────────────────────
