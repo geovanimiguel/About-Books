@@ -1,0 +1,441 @@
+/* ================================================================
+   LEITURA VIVA — Modal do livro + Agradecimento
+   Ficheiro: css/modal.css
+   ================================================================ */
+
+
+/* ── MODAL DO LIVRO ── */
+
+#lv-modal-livro {
+    position: fixed;
+    inset: 0;
+    z-index: 8000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+#lv-modal-livro[hidden] { display: none; }
+
+.lv-ml-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    transition: background 0.28s ease;
+    cursor: pointer;
+}
+
+#lv-modal-livro.lv-ml-open .lv-ml-backdrop {
+    background: rgba(0,0,0,0.65);
+}
+
+.lv-ml-box {
+    position: relative;
+    background: #fff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1;
+    opacity: 0;
+    transform: scale(0.93) translateY(16px);
+    transition: opacity 0.28s ease, transform 0.28s ease;
+    scrollbar-width: none;
+}
+
+.lv-ml-box::-webkit-scrollbar { display: none; }
+
+#lv-modal-livro.lv-ml-open .lv-ml-box {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.lv-ml-fechar {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,0.06);
+    color: #333;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: background 0.2s;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.lv-ml-fechar:hover { background: rgba(0,0,0,0.12); }
+
+/* Layout interno */
+.lv-ml-conteudo {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 560px) {
+    .lv-ml-conteudo {
+        grid-template-columns: 200px 1fr;
+    }
+}
+
+/* Capa */
+.lv-ml-capa {
+    width: 100%;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    border-radius: 20px 20px 0 0;
+    max-height: 280px;
+}
+
+@media (min-width: 560px) {
+    .lv-ml-capa {
+        border-radius: 20px 0 0 20px;
+        max-height: none;
+        aspect-ratio: 2/3;
+    }
+}
+
+.lv-ml-capa img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Info */
+.lv-ml-info {
+    padding: 24px 20px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lv-ml-genero {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #630D16;
+}
+
+.lv-ml-titulo {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.lv-ml-autor {
+    font-size: 0.82rem;
+    color: #666;
+    margin: 0;
+}
+
+.lv-ml-trecho {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: #444;
+    border-left: 3px solid #630D16;
+    padding-left: 14px;
+    margin: 4px 0;
+    font-style: italic;
+}
+
+/* Preços */
+.lv-ml-preco-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.lv-ml-precos {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.lv-ml-preco-old {
+    font-size: 0.75rem;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.lv-ml-preco {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #630D16;
+}
+
+.lv-ml-desconto {
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: #ffe5e5;
+    color: #d90429;
+    padding: 3px 8px;
+    border-radius: 999px;
+}
+
+/* Botões */
+.lv-ml-acoes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.lv-ml-btn-carrinho,
+.lv-ml-btn-comprar {
+    width: 100%;
+    padding: 13px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    min-height: 48px;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.lv-ml-btn-carrinho {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+.lv-ml-btn-carrinho:hover { background: #630D16; }
+
+.lv-ml-btn-comprar {
+    background: linear-gradient(135deg, #25D366, #1ebe5d);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(37,211,102,0.3);
+}
+
+.lv-ml-btn-comprar:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(37,211,102,0.4); }
+
+.lv-ml-nota {
+    font-size: 0.72rem;
+    color: #aaa;
+    text-align: center;
+    margin: 0;
+    max-width: none;
+}
+
+/* Cards clicáveis — cursor pointer */
+.book-card,
+.card-destaque {
+    cursor: pointer;
+}
+
+.book-card .add-to-cart,
+.book-card .notify-btn,
+.card-destaque .add-to-cart,
+.card-destaque .notify-btn,
+.card-destaque .destaque-btn,
+.card-destaque .destaque-btn-mobile {
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+}
+
+
+/* ── BANNER CHECKOUT RÁPIDO ── */
+
+.lv-banner-rapido {
+    background: #fff8e1;
+    border: 1px solid #f0c040;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    color: #7a5c00;
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.lv-banner-rapido i { flex-shrink: 0; }
+
+#lv-banner-restaurar {
+    background: none;
+    border: 1px solid #7a5c00;
+    border-radius: 999px;
+    padding: 3px 12px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #7a5c00;
+    cursor: pointer;
+    font-family: inherit;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.2s;
+    margin-left: auto;
+}
+
+#lv-banner-restaurar:hover { background: #7a5c00; color: #fff; }
+
+
+/* ── MODAL DE AGRADECIMENTO ── */
+
+#lv-modal-obrigado {
+    position: fixed;
+    inset: 0;
+    z-index: 8500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+#lv-modal-obrigado[hidden] { display: none; }
+
+.lv-mo-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    transition: background 0.28s ease;
+}
+
+#lv-modal-obrigado.lv-mo-open .lv-mo-backdrop {
+    background: rgba(0,0,0,0.6);
+}
+
+.lv-mo-box {
+    position: relative;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 28px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    z-index: 1;
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+    transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+#lv-modal-obrigado.lv-mo-open .lv-mo-box {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.lv-mo-icone {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    display: block;
+    animation: lv-bounce 0.5s ease 0.2s both;
+}
+
+@keyframes lv-bounce {
+    0%   { transform: scale(0); }
+    60%  { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+.lv-mo-titulo {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.4rem;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.lv-mo-texto {
+    font-size: 0.88rem;
+    color: #666;
+    line-height: 1.6;
+    max-width: 28ch;
+    margin: 0 auto 24px;
+    text-align: center;
+}
+
+.lv-mo-acoes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lv-mo-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    background: #630D16;
+    color: #fff;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.lv-mo-btn:hover { background: #82141E; }
+
+.lv-mo-btn-outline {
+    background: transparent;
+    color: #630D16;
+    border: 1px solid #630D16;
+}
+
+.lv-mo-btn-outline:hover { background: #630D16; color: #fff; }
+
+/* ── INDICADOR DE MEMÓRIA ── */
+
+.lv-mem-aviso {
+    font-size: 0.78rem;
+    color: #1a7a3a;
+    background: #f0faf4;
+    border: 1px solid #b8e8c8;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    max-width: none;
+}
+
+.lv-mem-aviso i { flex-shrink: 0; }
+
+#lv-mem-limpar {
+    background: none;
+    border: 1px solid #1a7a3a;
+    border-radius: 999px;
+    padding: 2px 10px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #1a7a3a;
+    cursor: pointer;
+    font-family: inherit;
+    -webkit-appearance: none;
+    margin-left: auto;
+    transition: all 0.2s;
+}
+
+#lv-mem-limpar:hover { background: #1a7a3a; color: #fff; }
